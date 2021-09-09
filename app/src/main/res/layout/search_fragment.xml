@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    tools:background="@color/background_grey"
+    android:layout_height="match_parent"
+    tools:context=".ui.main.screens.SearchFragment">
+
+    <EditText
+        android:id="@+id/etSearchTerm"
+        style="@style/EditTextStyle"
+        android:ems="10"
+        android:hint="Search for a Movie or TV Show"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/guideline3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline3" />
+
+    <RadioGroup
+        android:id="@+id/rgSearchChoice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etSearchTerm">
+
+        <RadioButton
+            android:id="@+id/rbMovie"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:buttonTint="@color/yellow_text"
+            android:checked="true"
+            android:text="Movies"
+            android:textColor="@color/light_gray_text" />
+
+        <RadioButton
+            android:id="@+id/rbTV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:buttonTint="@color/yellow_text"
+            android:text="TV Shows"
+            android:textColor="@color/light_gray_text" />
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/btnSearch"
+        android:layout_marginTop="16dp"
+        android:text="@string/search"
+        style="@style/ButtonStyle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rgSearchChoice" />
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.2" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

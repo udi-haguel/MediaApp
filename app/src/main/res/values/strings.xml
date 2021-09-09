@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">TMDB</string>
+    <string name="search">Search</string>
+    <string name="list">Search results</string>
+    <string name="favorites">Favorites</string>
+    <string name="single_media">Media</string>
+    <string name="media_poster">Media Poster</string>
+    <string name="center_dot">•</string>
+    <string name="log_out">Log out</string>
+    <string name="tmdb_based_media_app">TMDB based Media App</string>
+</resources>

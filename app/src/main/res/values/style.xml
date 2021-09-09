@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="EditTextStyle">
+        <item name="android:textColor">@color/light_gray_text</item>
+        <item name="android:textColorHint">@color/appbar_light_grey</item>
+        <item name="android:backgroundTint">@color/yellow_text</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">16dp</item>
+        <item name="android:layout_marginEnd">16dp</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="ButtonStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">16dp</item>
+        <item name="android:layout_marginEnd">16dp</item>
+        <item name="android:textColor">@color/background_grey</item>
+        <item name="android:backgroundTint">@color/yellow_text</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="AuthTextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">16dp</item>
+        <item name="android:layout_marginTop">16dp</item>
+        <item name="android:layout_marginEnd">16dp</item>
+        <item name="android:textColor">@color/light_gray_text</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="AuthTitleTextView">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">16dp</item>
+        <item name="android:layout_marginEnd">16dp</item>
+        <item name="android:layout_marginTop">64dp</item>
+        <item name="android:textSize">30sp</item>
+        <item name="android:textColor">@color/light_gray_text</item>
+        <item name="android:gravity">center_horizontal</item>
+    </style>
+
+    <style name="RecyclerViewStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:layout_marginBottom">8dp</item>
+        <item name="android:layout_marginStart">16dp</item>
+        <item name="android:layout_marginEnd">16dp</item>
+    </style>
+</resources>
