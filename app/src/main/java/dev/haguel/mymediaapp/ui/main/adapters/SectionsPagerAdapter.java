@@ -2,11 +2,17 @@ package dev.haguel.mymediaapp.ui.main.adapters;
 
 
 import android.content.Context;
+import android.view.View;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
+
 import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,14 +20,52 @@ import dev.haguel.mymediaapp.R;
 import dev.haguel.mymediaapp.ui.main.Utils;
 import dev.haguel.mymediaapp.ui.main.models.EventListener;
 import dev.haguel.mymediaapp.ui.main.models.Media;
-import dev.haguel.mymediaapp.ui.main.screens.SingleMediaFragment;
-import dev.haguel.mymediaapp.ui.main.screens.FavoritesFragment;
-import dev.haguel.mymediaapp.ui.main.screens.MediaListFragment;
-import dev.haguel.mymediaapp.ui.main.screens.SearchFragment;
+import dev.haguel.mymediaapp.ui.main.frags.SingleMediaFragment;
+import dev.haguel.mymediaapp.ui.main.frags.FavoritesFragment;
+import dev.haguel.mymediaapp.ui.main.frags.MediaListFragment;
+import dev.haguel.mymediaapp.ui.main.frags.SearchFragment;
 
 
-public class SectionsPagerAdapter extends FragmentStatePagerAdapter {
+public class SectionsPagerAdapter extends FragmentStateAdapter {
 
+    @StringRes
+    private static final int[] TAB_TITLES = new int[]{R.string.search, R.string.list, R.string.favorites, R.string.single_media};
+
+    EventListener eventListener;
+    List<Media> mediaList = new ArrayList<>();
+    List<Media> favoriteList = new ArrayList<>();
+    Media singleMedia;
+
+    public SectionsPagerAdapter(@NonNull @NotNull FragmentActivity fragmentActivity) {
+        super(fragmentActivity);
+    }
+
+    @NonNull
+    @NotNull
+    @Override
+    public Fragment createFragment(int position) {
+        switch (position){
+            case 0:
+                return SearchFragment.newInstance(eventListener);
+            case 1:
+                return MediaListFragment.newInstance(eventListener, new ArrayList<Media>(mediaList));
+            case 2:
+                return FavoritesFragment.newInstance(eventListener, new ArrayList<Media>(favoriteList));
+            case 3:
+                return SingleMediaFragment.newInstance(eventListener, singleMedia);
+            default:
+                throw new IllegalArgumentException("No such fragment");
+        }
+    }
+
+    @Override
+    public int getItemCount() {
+        return TAB_TITLES.length;
+    }
+
+
+
+    /*
     @StringRes
     private static final int[] TAB_TITLES = new int[]{R.string.search, R.string.list, R.string.favorites, R.string.single_media};
 
@@ -83,20 +127,7 @@ public class SectionsPagerAdapter extends FragmentStatePagerAdapter {
         return POSITION_NONE;
     }
 
-    /*
-    public Media getCurrentMedia() {
-        return singleMedia;
-    }
-
-    public List<Media> getCurrentMediaList(){
-        return mediaList;
-    }
-
-    public List<Media> getCurrentFavoriteList(){
-        return favoriteList;
-    }
-
-
      */
+
 }
 

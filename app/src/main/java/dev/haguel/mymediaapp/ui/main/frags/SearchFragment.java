@@ -1,4 +1,4 @@
-package dev.haguel.mymediaapp.ui.main.screens;
+package dev.haguel.mymediaapp.ui.main.frags;
 
 import androidx.lifecycle.ViewModelProvider;
 
@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.RadioGroup;
 
 import dev.haguel.mymediaapp.R;
+import dev.haguel.mymediaapp.ui.main.base.BaseFragment;
 import dev.haguel.mymediaapp.ui.main.models.EventListener;
 import dev.haguel.mymediaapp.ui.main.viewmodel.SharedViewModel;
 

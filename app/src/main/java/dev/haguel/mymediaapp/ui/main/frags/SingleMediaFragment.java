@@ -1,6 +1,5 @@
-package dev.haguel.mymediaapp.ui.main.screens;
+package dev.haguel.mymediaapp.ui.main.frags;
 
-import android.media.Image;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -15,13 +14,10 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import org.jetbrains.annotations.NotNull;
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import dev.haguel.mymediaapp.R;
 import dev.haguel.mymediaapp.ui.main.Utils;
+import dev.haguel.mymediaapp.ui.main.base.BaseFragment;
 import dev.haguel.mymediaapp.ui.main.models.EventListener;
 import dev.haguel.mymediaapp.ui.main.models.Media;
 

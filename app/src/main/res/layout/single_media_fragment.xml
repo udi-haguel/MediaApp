@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:background="@color/background_grey"
-    tools:context=".ui.main.screens.SingleMediaFragment">
+    tools:context=".ui.main.frags.SingleMediaFragment">
 
     <ImageView
         android:id="@+id/ivBackdropPath"

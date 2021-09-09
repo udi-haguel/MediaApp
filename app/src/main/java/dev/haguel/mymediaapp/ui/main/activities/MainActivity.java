@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.TabHost;
 
 import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -25,9 +26,10 @@ import com.google.gson.reflect.TypeToken;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager.widget.ViewPager;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager2.widget.ViewPager2;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -44,7 +46,7 @@ import dev.haguel.mymediaapp.ui.main.viewmodel.SharedViewModel;
 
 
 
-public class MainActivity extends AppCompatActivity implements EventListener {
+public class MainActivity extends FragmentActivity implements EventListener {
 
 
 
@@ -56,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements EventListener {
 
     // UI
     private SectionsPagerAdapter sectionsPagerAdapter;
-    private ViewPager viewPager;
+    private ViewPager2 viewPager;
     private TabLayout tabs;
     private View loader;
     private Toolbar mToolBar;
@@ -87,80 +89,86 @@ public class MainActivity extends AppCompatActivity implements EventListener {
 
 
         mToolBar = findViewById(R.id.mToolBar);
-        setSupportActionBar(mToolBar);
+        //setSupportActionBar(mToolBar);
 
-        loader = findViewById(R.id.flLoader);
         loaderDialog = new LoaderDialog(this);
 
         mViewModel = new ViewModelProvider(this).get(SharedViewModel.class);
 
-        sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
+        sectionsPagerAdapter = new SectionsPagerAdapter(this);
         viewPager = findViewById(R.id.view_pager);
+
         viewPager.setAdapter(sectionsPagerAdapter);
         // viewPager.setOffscreenPageLimit(4);
         tabs = findViewById(R.id.tabsLayout);
-        tabs.setupWithViewPager(viewPager);
+        new TabLayoutMediator(tabs, viewPager,
+                (tab, position) -> {
+
+                }
+                ).attach();
+        //tabs.setupWithViewPager(viewPager);
         setIcons(tabs);
 
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                //mToolBar.setTitle(sectionsPagerAdapter.getTitleId(position));
-                setPageTitle(sectionsPagerAdapter.getTitleId(position));
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-            }
-        });
-
-
-
-
-
-        mViewModel.getMediaListLiveData().observe(this, mediaList -> {
-
-
-            if (mediaList != null && mediaList.size() > 0) {
-                mViewModel.pushDataToFirebase(mediaList, Utils.LAST_SEARCH_FIREBASE_KEY);
-                sectionsPagerAdapter.setMediaList(mediaList);
-                if (viewPager.getCurrentItem() == 0 && isOnSearch ) {
-                    isOnSearch = false;
-                    moveToTab(1);
-                }
-                sectionsPagerAdapter.notifyDataSetChanged();
-            } else {
-                toggleLoader(false);
-            }
-            setIcons(tabs);
-        });
-
-        mViewModel.getFavoritesLiveData().observe(this, favList -> {
-            if (favList != null) {
-                mViewModel.pushDataToFirebase(favList, Utils.FAVORITES_FIREBASE_KEY);
-                sectionsPagerAdapter.setFavoriteList(favList);
-                sectionsPagerAdapter.notifyDataSetChanged();
-            }
-            setIcons(tabs);
-        });
-
-
-        mViewModel.getSingleMediaLiveData().observe(this, media -> {
-            if (!isSingleMediaExist){
-                TabLayout.Tab tabAt = tabs.getTabAt(3);
-                if (tabAt != null){
-                    isSingleMediaExist = true;
-                    tabAt.view.setClickable(true);
-                }
-            }
-            sectionsPagerAdapter.setSelectedMedia(media);
-            sectionsPagerAdapter.notifyDataSetChanged();
-            setIcons(tabs);
-        });
+//
+//        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+//            @Override
+//            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+//            }
+//
+//            @Override
+//            public void onPageSelected(int position) {
+//                //mToolBar.setTitle(sectionsPagerAdapter.getTitleId(position));
+//                setPageTitle(sectionsPagerAdapter.getTitleId(position));
+//            }
+//
+//            @Override
+//            public void onPageScrollStateChanged(int state) {
+//            }
+//        });
+//
+//
+//
+//
+//
+//        mViewModel.getMediaListLiveData().observe(this, mediaList -> {
+//
+//
+//            if (mediaList != null && mediaList.size() > 0) {
+//                mViewModel.pushDataToFirebase(mediaList, Utils.LAST_SEARCH_FIREBASE_KEY);
+//                sectionsPagerAdapter.setMediaList(mediaList);
+//                if (viewPager.getCurrentItem() == 0 && isOnSearch ) {
+//                    isOnSearch = false;
+//                    moveToTab(1);
+//                }
+//                sectionsPagerAdapter.notifyDataSetChanged();
+//            } else {
+//                toggleLoader(false);
+//            }
+//            setIcons(tabs);
+//        });
+//
+//        mViewModel.getFavoritesLiveData().observe(this, favList -> {
+//            if (favList != null) {
+//                mViewModel.pushDataToFirebase(favList, Utils.FAVORITES_FIREBASE_KEY);
+//                // sectionsPagerAdapter.setFavoriteList(favList);
+//                sectionsPagerAdapter.notifyDataSetChanged();
+//            }
+//            setIcons(tabs);
+//        });
+//
+//
+//        mViewModel.getSingleMediaLiveData().observe(this, media -> {
+//            if (!isSingleMediaExist){
+//                TabLayout.Tab tabAt = tabs.getTabAt(3);
+//                if (tabAt != null){
+//                    isSingleMediaExist = true;
+//                    tabAt.view.setClickable(true);
+//                }
+//            }
+//            // sectionsPagerAdapter.setSelectedMedia(media);
+//            sectionsPagerAdapter.notifyDataSetChanged();
+//            setIcons(tabs);
+//        });
 
     }
 

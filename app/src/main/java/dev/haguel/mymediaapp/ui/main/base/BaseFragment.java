@@ -1,4 +1,4 @@
-package dev.haguel.mymediaapp.ui.main.screens;
+package dev.haguel.mymediaapp.ui.main.base;
 
 import androidx.fragment.app.Fragment;
 

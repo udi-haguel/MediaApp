@@ -1,4 +1,4 @@
-package dev.haguel.mymediaapp.ui.main.screens;
+package dev.haguel.mymediaapp.ui.main.frags;
 
 
 import android.os.Bundle;
