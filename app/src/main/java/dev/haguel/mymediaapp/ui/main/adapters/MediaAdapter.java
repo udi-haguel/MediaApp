@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import dev.haguel.mymediaapp.R;
@@ -28,6 +29,11 @@ public class MediaAdapter extends RecyclerView.Adapter<MediaAdapter.ViewHolder>{
     //CONSTRUCTOR
     public MediaAdapter(List<Media> mediaList){
         this.mediaList = mediaList;
+    }
+
+    public void SetNewData(ArrayList<Media> list) {
+        this.mediaList.clear();
+        this.mediaList.addAll(list);
     }
 
     public interface OnMediaClickListener{

@@ -16,14 +16,16 @@ import com.squareup.picasso.Picasso;
 import org.jetbrains.annotations.NotNull;
 
 import dev.haguel.mymediaapp.R;
-import dev.haguel.mymediaapp.ui.main.Utils;
-import dev.haguel.mymediaapp.ui.main.base.BaseFragment;
+import dev.haguel.mymediaapp.ui.main.base.BaseViewPagerPage;
 import dev.haguel.mymediaapp.ui.main.models.EventListener;
 import dev.haguel.mymediaapp.ui.main.models.Media;
 
-public class SingleMediaFragment extends BaseFragment {
+public class SingleMediaViewPagerPage extends BaseViewPagerPage {
 
+    // DATA
+    Media media;
 
+    // UI
     private ImageView ivBackdropPath;
     private ImageView ivSingleFavorite;
     private TextView tvSingleTitle;
@@ -32,17 +34,10 @@ public class SingleMediaFragment extends BaseFragment {
     private TextView tvSingleRatingsAndVoteAverage;
     private TextView tvSingleMediaOverview;
 
-    //private AccountViewModel mViewModel;
-    public static SingleMediaFragment newInstance(EventListener eventListener, Media singleMedia) {
-
-        Bundle args = new Bundle();
-
-        if (singleMedia !=null)
-            args.putSerializable(Utils.SINGLE_MEDIA_KEY, singleMedia);
-
-        SingleMediaFragment mediaFrag = new SingleMediaFragment();
-        mediaFrag.setArguments(args);
+    public static SingleMediaViewPagerPage newInstance(EventListener eventListener, Media singleMedia) {
+        SingleMediaViewPagerPage mediaFrag = new SingleMediaViewPagerPage();
         mediaFrag.eventListener = eventListener;
+        mediaFrag.media = singleMedia;
         return mediaFrag;
     }
 
@@ -58,15 +53,6 @@ public class SingleMediaFragment extends BaseFragment {
     public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        if (getActivity() == null) return;
-        Bundle bundle = getArguments();
-        if (bundle == null || !bundle.containsKey(Utils.SINGLE_MEDIA_KEY)) return;
-
-        Media media = (Media) bundle.getSerializable(Utils.SINGLE_MEDIA_KEY);
-        if (media == null) {
-            return;
-        }
-
         ivBackdropPath = view.findViewById(R.id.ivBackdropPath);
         ivSingleFavorite = view.findViewById(R.id.ivSingleMediaFav);
         tvSingleTitle = view.findViewById(R.id.tvSingleTitle);
@@ -76,19 +62,19 @@ public class SingleMediaFragment extends BaseFragment {
         tvSingleMediaOverview = view.findViewById(R.id.tvSingleMediaOverview);
 
 
+        if (media == null) return;
+        initDataToUI();
+    }
 
+    private void initDataToUI() {
         tvSingleTitle.setText(media.getTitle());
         tvSingleMediaType.setText(media.getMediaType());
         tvSingleReleaseDate.setText(media.getDate());
         tvSingleRatingsAndVoteAverage.setText(media.getRatingsWithVotersCount());
         tvSingleMediaOverview.setText(media.getOverview());
-
-
-
         ivSingleFavorite.setOnClickListener(ivFavIconView -> {
             eventListener.onFavoriteClickListener(media);
         });
-
         Picasso.get().load(media.getImageLinkPath() + media.getBackdropPath())
                 .placeholder(R.mipmap.preview_backdrop_image)
                 .error(R.mipmap.preview_backdrop_image)
@@ -106,9 +92,7 @@ public class SingleMediaFragment extends BaseFragment {
                 });
 
         favoriteToggle(media);
-
     }
-
 
 
     private void favoriteToggle(Media media){
@@ -117,6 +101,11 @@ public class SingleMediaFragment extends BaseFragment {
         } else {
             ivSingleFavorite.setImageResource(R.drawable.star_outline);
         }
+    }
+
+    public void notifyListChanged(Media media) {
+        this.media = media;
+        initDataToUI();
     }
 
 

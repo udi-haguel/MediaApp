@@ -13,7 +13,6 @@ public class Utils {
     public static final String EMAIL_KEY = "EMAIL_KEY";
     public static final String FAVORITE_LIST_KEY = "FAVORITE_LIST_KEY";
     public static final String MEDIA_LIST_KEY = "MEDIA_LIST_KEY";
-    public static final String SINGLE_MEDIA_KEY = "SINGLE_MEDIA";
     public static final String FAVORITES_FIREBASE_KEY = "Favorites";
     public static final String LAST_SEARCH_FIREBASE_KEY = "LastSearch";
     public static final String USERS_FIREBASE_KEY = "Users";

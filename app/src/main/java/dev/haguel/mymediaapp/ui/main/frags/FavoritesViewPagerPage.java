@@ -16,63 +16,60 @@ import java.util.ArrayList;
 import dev.haguel.mymediaapp.R;
 import dev.haguel.mymediaapp.ui.main.Utils;
 import dev.haguel.mymediaapp.ui.main.adapters.MediaAdapter;
-import dev.haguel.mymediaapp.ui.main.base.BaseFragment;
+import dev.haguel.mymediaapp.ui.main.base.BaseViewPagerPage;
 import dev.haguel.mymediaapp.ui.main.models.EventListener;
 import dev.haguel.mymediaapp.ui.main.models.Media;
 
-public class MediaListFragment extends BaseFragment {
+public class FavoritesViewPagerPage extends BaseViewPagerPage {
 
 
-    public static MediaListFragment newInstance(EventListener eventListener, ArrayList<Media> mediaList) {
-        MediaListFragment mediaListFrag = new MediaListFragment();
-        mediaListFrag.eventListener = eventListener;
+    RecyclerView rvMedia;
+    ArrayList<Media> favList;
+    public static FavoritesViewPagerPage newInstance(EventListener eventListener, ArrayList<Media> favList) {
 
-        Bundle bundle = new Bundle();
-        bundle.putSerializable(Utils.MEDIA_LIST_KEY, mediaList);
-        mediaListFrag.setArguments(bundle);
-
-        return mediaListFrag;
-
+        FavoritesViewPagerPage favFrag = new FavoritesViewPagerPage();
+        favFrag.eventListener = eventListener;
+        favFrag.favList = favList;
+        return favFrag;
     }
-
 
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.media_list_fragment, container, false);
+        return inflater.inflate(R.layout.favorites_fragment, container, false);
     }
-
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        if (getActivity() == null) return;
-
-        Bundle bundle = getArguments();
-        if (bundle == null || !bundle.containsKey(Utils.MEDIA_LIST_KEY)) {
-            return;
-        }
-
-        ArrayList<Media> mediaList = (ArrayList<Media>) bundle.getSerializable(Utils.MEDIA_LIST_KEY);
-        RecyclerView rvMedia = view.findViewById(R.id.rvMedia);
-        MediaAdapter adapter = new MediaAdapter(mediaList);
+        rvMedia = view.findViewById(R.id.rvFavoriteMedia);
+        MediaAdapter adapter = new MediaAdapter(favList);
         rvMedia.setLayoutManager(new LinearLayoutManager(getContext()));
         rvMedia.setAdapter(adapter);
         adapter.setOnMediaClickListener(new MediaAdapter.OnMediaClickListener() {
             @Override
             public void onMediaClick(int position) {
-                eventListener.onMediaClickedListener(mediaList.get(position));
+                eventListener.onMediaClickedListener(favList.get(position));
+                MediaAdapter adapter = (MediaAdapter) rvMedia.getAdapter();
+                adapter.notifyDataSetChanged();
             }
 
             @Override
             public void onFavoriteClick(int position) {
-                eventListener.onFavoriteClickListener(mediaList.get(position));
+                eventListener.onFavoriteClickListener(favList.get(position));
+                MediaAdapter adapter = (MediaAdapter) rvMedia.getAdapter();
+                adapter.notifyDataSetChanged();
             }
         });
-        rvMedia.scrollToPosition(0);
-        toggleLoader(false);
+    }
 
+    public void notifyListChanged(ArrayList<Media> list) {
+        if (rvMedia == null) return;
+        this.favList.clear();
+        this.favList.addAll(list);
+        MediaAdapter adapter = (MediaAdapter) rvMedia.getAdapter();
+        adapter.notifyDataSetChanged();
     }
 
 }

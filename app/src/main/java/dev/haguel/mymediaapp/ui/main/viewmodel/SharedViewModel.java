@@ -27,7 +27,6 @@ public class SharedViewModel extends ViewModel {
 
     public SharedViewModel() {
         mediaApiManager = new MediaApiManager();
-
         mediaListLiveData = new MutableLiveData<>();
         favoritesLiveData = new MutableLiveData<>();
         singleMediaLiveData = new MutableLiveData<>();

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     tools:background="@color/background_grey"
     android:layout_height="match_parent"
-    tools:context=".ui.main.frags.SearchFragment">
+    tools:context=".ui.main.frags.SearchViewPagerPage">
 
     <EditText
         android:id="@+id/etSearchTerm"

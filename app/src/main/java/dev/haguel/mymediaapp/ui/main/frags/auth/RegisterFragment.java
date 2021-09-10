@@ -1,4 +1,4 @@
-package dev.haguel.mymediaapp.ui.main.frags;
+package dev.haguel.mymediaapp.ui.main.frags.auth;
 
 import android.os.Bundle;
 

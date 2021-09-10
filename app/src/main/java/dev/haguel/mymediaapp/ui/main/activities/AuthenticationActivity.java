@@ -7,7 +7,7 @@ import android.os.Bundle;
 
 import dev.haguel.mymediaapp.R;
 import dev.haguel.mymediaapp.ui.main.LoaderDialog;
-import dev.haguel.mymediaapp.ui.main.frags.LoginFragment;
+import dev.haguel.mymediaapp.ui.main.frags.auth.LoginFragment;
 
 public class AuthenticationActivity extends AppCompatActivity {
 
