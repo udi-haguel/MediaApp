@@ -6,14 +6,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-
 import java.util.ArrayList;
-
 import dev.haguel.mymediaapp.R;
 import dev.haguel.mymediaapp.ui.main.adapters.MediaAdapter;
 import dev.haguel.mymediaapp.ui.main.models.EventListener;

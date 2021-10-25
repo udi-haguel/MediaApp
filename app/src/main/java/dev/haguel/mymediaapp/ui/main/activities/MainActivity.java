@@ -9,7 +9,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
-
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -20,25 +19,18 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
-
-import org.jetbrains.annotations.NotNull;
-
 import java.lang.reflect.Type;
 import java.util.List;
-
 import dev.haguel.mymediaapp.R;
 import dev.haguel.mymediaapp.ui.main.adapters.SectionsPagerAdapter;
 import dev.haguel.mymediaapp.ui.main.models.EventListener;
 import dev.haguel.mymediaapp.ui.main.models.Media;
 import dev.haguel.mymediaapp.ui.main.viewmodel.SharedViewModel;
-
-
 
 public class MainActivity extends AppCompatActivity implements EventListener {
 
@@ -248,22 +240,22 @@ public class MainActivity extends AppCompatActivity implements EventListener {
         dbRef.child(FAVORITES_FIREBASE_KEY).child(userID)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
                 mViewModel.postFavorite(snapshotToList(snapshot));
             }
             @Override
-            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+            public void onCancelled(@NonNull DatabaseError error) {
             }
         });
 
         dbRef.child(LAST_SEARCH_FIREBASE_KEY).child(userID)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
                 mViewModel.postMediaList(snapshotToList(snapshot));
             }
             @Override
-            public void onCancelled(@NonNull @NotNull DatabaseError error) {}
+            public void onCancelled(@NonNull DatabaseError error) {}
         });
         setPageTitle(R.string.search);
 

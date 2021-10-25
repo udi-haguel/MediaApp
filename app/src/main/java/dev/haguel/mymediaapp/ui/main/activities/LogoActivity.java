@@ -1,12 +1,10 @@
 package dev.haguel.mymediaapp.ui.main.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-
 import dev.haguel.mymediaapp.R;
 
 public class LogoActivity extends AppCompatActivity {

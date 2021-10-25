@@ -2,11 +2,9 @@ package dev.haguel.mymediaapp.ui.main.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
-
 import dev.haguel.mymediaapp.R;
 import dev.haguel.mymediaapp.ui.main.screens.LoginFragment;
 

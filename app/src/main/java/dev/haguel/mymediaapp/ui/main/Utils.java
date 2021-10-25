@@ -1,16 +1,11 @@
 package dev.haguel.mymediaapp.ui.main;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-
 import java.util.List;
-
 import dev.haguel.mymediaapp.R;
 import dev.haguel.mymediaapp.ui.main.models.Media;
-import dev.haguel.mymediaapp.ui.main.screens.RegisterFragment;
+
 
 public class Utils {
     public static boolean isInList(Media media, List<Media> list){
