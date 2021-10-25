@@ -21,9 +21,9 @@ public class LogoActivity extends AppCompatActivity {
 
 
         handler.postDelayed(()->{
-            finish();
             Intent goToLogin = new Intent(this, MainActivity.class);
             startActivity(goToLogin);
-        },100);
+            finish();
+        },2000);
     }
 }

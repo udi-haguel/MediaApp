@@ -1,4 +1,4 @@
-package dev.haguel.mymediaapp.ui.main.frags.auth;
+package dev.haguel.mymediaapp.ui.main.screens;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,7 +6,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
+import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Patterns;
 import android.view.LayoutInflater;
@@ -14,7 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,12 +25,11 @@ import org.jetbrains.annotations.NotNull;
 
 import dev.haguel.mymediaapp.R;
 import dev.haguel.mymediaapp.ui.main.Utils;
-import dev.haguel.mymediaapp.ui.main.activities.AuthenticationActivity;
 import dev.haguel.mymediaapp.ui.main.activities.MainActivity;
 
-public class LoginFragment extends Fragment {
+public class LoginFragment extends BaseAuthFragment {
 
-
+    public static final String EMAIL_KEY = "EMAIL_KEY";
 
     private EditText etLoginEmail;
     private EditText etLoginPassword;
@@ -45,7 +44,7 @@ public class LoginFragment extends Fragment {
         LoginFragment loginFrag = new LoginFragment();
 
         Bundle bundle = new Bundle();
-        bundle.putString(Utils.EMAIL_KEY, email);
+        bundle.putString(EMAIL_KEY, email);
         loginFrag.setArguments(bundle);
 
         return loginFrag;
@@ -65,8 +64,8 @@ public class LoginFragment extends Fragment {
 
         String email;
         Bundle bundle = getArguments();
-        if (bundle != null && bundle.containsKey(Utils.EMAIL_KEY)) {
-            email = bundle.getString(Utils.EMAIL_KEY);
+        if (bundle != null && bundle.containsKey(EMAIL_KEY)) {
+            email = bundle.getString(EMAIL_KEY);
         } else {
             email = "";
         }
@@ -76,7 +75,6 @@ public class LoginFragment extends Fragment {
         btnLogin = view.findViewById(R.id.btnLogin);
         tvRegister = view.findViewById(R.id.tvRegisterBtn);
         tvForgotPassword = view.findViewById(R.id.tvForgotPassword);
-
 
 
         etLoginEmail.setText(email);
@@ -127,7 +125,7 @@ public class LoginFragment extends Fragment {
             return;
         }
 
-        ((AuthenticationActivity)getActivity()).toggleDialog(true);
+        toggleLoader(true);
         loginUser(email, password);
     }
 
@@ -147,7 +145,7 @@ public class LoginFragment extends Fragment {
                     } else {
                         Toast.makeText(getActivity(), "Failed to log in", Toast.LENGTH_LONG).show();
                     }
-                    ((AuthenticationActivity)getActivity()).toggleDialog(false);
+                    toggleLoader(false);
                 });
     }
 

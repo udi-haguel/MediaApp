@@ -1,10 +1,12 @@
-package dev.haguel.mymediaapp.ui.main.frags.auth;
+package dev.haguel.mymediaapp.ui.main.screens;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Patterns;
 import android.view.LayoutInflater;
@@ -12,20 +14,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 
 import org.jetbrains.annotations.NotNull;
 
 import dev.haguel.mymediaapp.R;
 import dev.haguel.mymediaapp.ui.main.Utils;
-import dev.haguel.mymediaapp.ui.main.activities.AuthenticationActivity;
+import dev.haguel.mymediaapp.ui.main.activities.MainActivity;
 import dev.haguel.mymediaapp.ui.main.models.User;
 
-public class RegisterFragment extends Fragment {
+public class RegisterFragment extends BaseAuthFragment {
+
 
     EditText etRegisterName;
     EditText etRegisterEmail;
@@ -115,7 +120,7 @@ public class RegisterFragment extends Fragment {
             return;
         }
 
-        ((AuthenticationActivity)getActivity()).toggleDialog(true);
+        toggleLoader(true);
         registerUser(fullName, email, password);
     }
 
@@ -125,25 +130,19 @@ public class RegisterFragment extends Fragment {
 
                     if (registerTask.isSuccessful()){
                         User user = new User(fullName, email);
-                        String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();;
+                        String userID = FirebaseAuth.getInstance().getCurrentUser().getUid();
                         FirebaseAuth.getInstance().getCurrentUser().sendEmailVerification();
 
-                        FirebaseDatabase.getInstance().getReference(Utils.USERS_FIREBASE_KEY)
+                        FirebaseDatabase.getInstance().getReference("Users")
                                 .child(userID).setValue(user);
 
-                        FirebaseDatabase.getInstance().getReference(Utils.FAVORITES_FIREBASE_KEY)
-                                .child(userID).setValue("[]");
-
-                        FirebaseDatabase.getInstance().getReference(Utils.LAST_SEARCH_FIREBASE_KEY)
-                                .child(userID).setValue("[]");
-
                         FirebaseAuth.getInstance().signOut();
-                        ((AuthenticationActivity)getActivity()).toggleDialog(false);
+                        toggleLoader(false);
                         Toast.makeText(getActivity(), "Please verify your Email and log in", Toast.LENGTH_LONG).show();
                         Utils.changeAuthScreen(getParentFragmentManager().beginTransaction(), LoginFragment.newInstance(etRegisterEmail.getText().toString().trim()));
                     } else {
                         Toast.makeText(getActivity(), "Failed to register", Toast.LENGTH_LONG).show();
-                        ((AuthenticationActivity)getActivity()).toggleDialog(false);
+                        toggleLoader(false);
                     }
                 });
     }

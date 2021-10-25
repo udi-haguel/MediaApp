@@ -1,30 +1,32 @@
-package dev.haguel.mymediaapp.ui.main.frags.auth;
+package dev.haguel.mymediaapp.ui.main.screens;
 
 
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
-
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.firebase.auth.FirebaseAuth;
 
 import org.jetbrains.annotations.NotNull;
 
 import dev.haguel.mymediaapp.R;
 import dev.haguel.mymediaapp.ui.main.Utils;
-import dev.haguel.mymediaapp.ui.main.activities.AuthenticationActivity;
 
-public class ForgotPasswordFragment extends Fragment {
+public class ForgotPasswordFragment extends BaseAuthFragment {
 
     private EditText etEmail;
     private Button btnReset;
@@ -95,7 +97,7 @@ public class ForgotPasswordFragment extends Fragment {
             return;
         }
 
-        ((AuthenticationActivity)getActivity()).toggleDialog(true);
+        toggleLoader(true);
         auth.sendPasswordResetEmail(email).addOnCompleteListener(task -> {
            if (task.isSuccessful()){
                Toast.makeText(getContext(), "Check your email to reset your password", Toast.LENGTH_LONG).show();
@@ -104,7 +106,10 @@ public class ForgotPasswordFragment extends Fragment {
            } else {
                Toast.makeText(getContext(), "Try again! something went wrong, or email does not exist", Toast.LENGTH_LONG).show();
            }
-            ((AuthenticationActivity)getActivity()).toggleDialog(false);
+           toggleLoader(false);
+        }).addOnFailureListener(err -> {
+            toggleLoader(false);
+            Toast.makeText(getContext(), "Try again! something went wrong, or email does not exist", Toast.LENGTH_LONG).show();
         });
 
 

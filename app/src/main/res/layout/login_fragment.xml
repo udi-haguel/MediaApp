@@ -67,16 +67,6 @@
         app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
 
 
-    <ProgressBar
-        android:id="@+id/ProgressBarLogin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/loginMiddleGuideLine"
         android:layout_width="wrap_content"

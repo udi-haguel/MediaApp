@@ -3,8 +3,6 @@ package dev.haguel.mymediaapp.ui.main.adapters;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -13,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import dev.haguel.mymediaapp.R;
@@ -23,17 +20,11 @@ public class MediaAdapter extends RecyclerView.Adapter<MediaAdapter.ViewHolder>{
 
     private List<Media> mediaList;
     private OnMediaClickListener mListener;
-    private int lastPosition = -1;
 
 
     //CONSTRUCTOR
     public MediaAdapter(List<Media> mediaList){
         this.mediaList = mediaList;
-    }
-
-    public void SetNewData(ArrayList<Media> list) {
-        this.mediaList.clear();
-        this.mediaList.addAll(list);
     }
 
     public interface OnMediaClickListener{
@@ -72,11 +63,6 @@ public class MediaAdapter extends RecyclerView.Adapter<MediaAdapter.ViewHolder>{
                 .placeholder(R.mipmap.preview_poster_image)
                 .error(R.mipmap.preview_poster_image)
                 .into(holder.ivMediaPoster);
-
-
-
-
-        setAnimation(holder.itemView, holder.getAdapterPosition());
     }
 
     @Override
@@ -122,14 +108,6 @@ public class MediaAdapter extends RecyclerView.Adapter<MediaAdapter.ViewHolder>{
                     }
                 }
             });
-        }
-    }
-
-    private void setAnimation(View v, int position){
-        if (position > lastPosition){
-            Animation animation = AnimationUtils.loadAnimation(v.getContext(), R.anim.slide_in_animation);
-            v.startAnimation(animation);
-             lastPosition = position;
         }
     }
 

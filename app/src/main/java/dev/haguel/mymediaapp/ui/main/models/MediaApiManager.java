@@ -1,4 +1,4 @@
-package dev.haguel.mymediaapp.ui.main;
+package dev.haguel.mymediaapp.ui.main.models;
 
 import androidx.lifecycle.MutableLiveData;
 
@@ -7,9 +7,6 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-import dev.haguel.mymediaapp.ui.main.models.Media;
-import dev.haguel.mymediaapp.ui.main.models.MediaResponse;
-import dev.haguel.mymediaapp.ui.main.models.MediaService;
 import dev.haguel.mymediaapp.ui.main.viewmodel.SharedViewModel;
 import retrofit2.Call;
 import retrofit2.Callback;

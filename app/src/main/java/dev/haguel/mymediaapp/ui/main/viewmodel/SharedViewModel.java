@@ -1,9 +1,13 @@
 package dev.haguel.mymediaapp.ui.main.viewmodel;
 
+import android.app.Activity;
+import android.widget.ImageView;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.gson.Gson;
@@ -13,8 +17,9 @@ import java.util.List;
 
 import dev.haguel.mymediaapp.R;
 import dev.haguel.mymediaapp.ui.main.Utils;
+import dev.haguel.mymediaapp.ui.main.activities.MainActivity;
 import dev.haguel.mymediaapp.ui.main.models.Media;
-import dev.haguel.mymediaapp.ui.main.MediaApiManager;
+import dev.haguel.mymediaapp.ui.main.models.MediaApiManager;
 
 public class SharedViewModel extends ViewModel {
 
@@ -27,6 +32,7 @@ public class SharedViewModel extends ViewModel {
 
     public SharedViewModel() {
         mediaApiManager = new MediaApiManager();
+
         mediaListLiveData = new MutableLiveData<>();
         favoritesLiveData = new MutableLiveData<>();
         singleMediaLiveData = new MutableLiveData<>();
@@ -53,6 +59,7 @@ public class SharedViewModel extends ViewModel {
             }
         }
         mediaListLiveData.postValue(mediaList);
+        // TODO: move to tab 1
     }
 
     public void setSingleMediaLiveData(Media media){

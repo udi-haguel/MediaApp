@@ -1,5 +1,8 @@
 package dev.haguel.mymediaapp.ui.main;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -7,16 +10,9 @@ import java.util.List;
 
 import dev.haguel.mymediaapp.R;
 import dev.haguel.mymediaapp.ui.main.models.Media;
+import dev.haguel.mymediaapp.ui.main.screens.RegisterFragment;
 
 public class Utils {
-
-    public static final String EMAIL_KEY = "EMAIL_KEY";
-    public static final String FAVORITE_LIST_KEY = "FAVORITE_LIST_KEY";
-    public static final String MEDIA_LIST_KEY = "MEDIA_LIST_KEY";
-    public static final String FAVORITES_FIREBASE_KEY = "Favorites";
-    public static final String LAST_SEARCH_FIREBASE_KEY = "LastSearch";
-    public static final String USERS_FIREBASE_KEY = "Users";
-
     public static boolean isInList(Media media, List<Media> list){
         for (Media item : list) {
             if (compareID(media, item)){

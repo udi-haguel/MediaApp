@@ -4,21 +4,22 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.FrameLayout;
 
 import dev.haguel.mymediaapp.R;
-import dev.haguel.mymediaapp.ui.main.LoaderDialog;
-import dev.haguel.mymediaapp.ui.main.frags.auth.LoginFragment;
+import dev.haguel.mymediaapp.ui.main.screens.LoginFragment;
 
 public class AuthenticationActivity extends AppCompatActivity {
 
-    private LoaderDialog loaderDialog;
+    private FrameLayout loader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_authentication);
 
-        loaderDialog = new LoaderDialog(this);
+        loader = findViewById(R.id.flLoaderAuth);
 
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.add(R.id.auth_fragment_container, LoginFragment.newInstance(""));
@@ -27,13 +28,14 @@ public class AuthenticationActivity extends AppCompatActivity {
 
 
 
-    public void toggleDialog(boolean toShow){
-        if (toShow){
-            if (!loaderDialog.isShowing())
-                loaderDialog.show();
+    public void toggleLoader(boolean show){
+
+        if (show) {
+            loader.setVisibility(View.VISIBLE);
         } else {
-            if(loaderDialog.isShowing())
-                loaderDialog.dismiss();
+            loader.setVisibility(View.GONE);
         }
     }
+
+
 }

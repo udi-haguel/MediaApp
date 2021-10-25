@@ -1,4 +1,4 @@
-package dev.haguel.mymediaapp.ui.main.frags;
+package dev.haguel.mymediaapp.ui.main.screens;
 
 import androidx.lifecycle.ViewModelProvider;
 
@@ -16,19 +16,20 @@ import android.widget.EditText;
 import android.widget.RadioGroup;
 
 import dev.haguel.mymediaapp.R;
-import dev.haguel.mymediaapp.ui.main.base.BaseViewPagerPage;
 import dev.haguel.mymediaapp.ui.main.models.EventListener;
 import dev.haguel.mymediaapp.ui.main.viewmodel.SharedViewModel;
 
-public class SearchViewPagerPage extends BaseViewPagerPage {
+public class SearchFragment extends BaseFragment {
 
+    private SharedViewModel mViewModel;
     private Button btnSearch;
     private EditText etSearchTerm;
     private RadioGroup rg;
 
+    //MediaListFragment fragment = new MediaListFragment();
 
-    public static SearchViewPagerPage newInstance(EventListener eventListener) {
-        SearchViewPagerPage searchFrag = new SearchViewPagerPage();
+    public static SearchFragment newInstance(EventListener eventListener) {
+        SearchFragment searchFrag = new SearchFragment();
         searchFrag.eventListener = eventListener;
         return searchFrag;
     }
@@ -43,6 +44,7 @@ public class SearchViewPagerPage extends BaseViewPagerPage {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         if (getActivity() == null) return;
+        mViewModel = new ViewModelProvider(getActivity()).get(SharedViewModel.class);
         btnSearch = view.findViewById(R.id.btnSearch);
         etSearchTerm = view.findViewById(R.id.etSearchTerm);
         rg = view.findViewById(R.id.rgSearchChoice);

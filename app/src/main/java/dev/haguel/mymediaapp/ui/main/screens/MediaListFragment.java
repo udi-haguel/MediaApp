@@ -1,4 +1,4 @@
-package dev.haguel.mymediaapp.ui.main.frags;
+package dev.haguel.mymediaapp.ui.main.screens;
 
 import android.os.Bundle;
 
@@ -10,32 +10,33 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import java.util.ArrayList;
 
 import dev.haguel.mymediaapp.R;
-import dev.haguel.mymediaapp.ui.main.Utils;
 import dev.haguel.mymediaapp.ui.main.adapters.MediaAdapter;
-import dev.haguel.mymediaapp.ui.main.base.BaseViewPagerPage;
 import dev.haguel.mymediaapp.ui.main.models.EventListener;
 import dev.haguel.mymediaapp.ui.main.models.Media;
 
-public class MediaListViewPagerPage extends BaseViewPagerPage {
+public class MediaListFragment extends BaseFragment {
+
+    private static final String MEDIA_LIST_KEY = "MEDIA_LIST_KEY";
 
 
-    public static MediaListViewPagerPage newInstance(EventListener eventListener, ArrayList<Media> mediaList) {
-        MediaListViewPagerPage mediaListFrag = new MediaListViewPagerPage();
+    public static MediaListFragment newInstance(EventListener eventListener, ArrayList<Media> mediaList) {
+        MediaListFragment mediaListFrag = new MediaListFragment();
         mediaListFrag.eventListener = eventListener;
-        mediaListFrag.mediaList = mediaList;
+
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(MEDIA_LIST_KEY, mediaList);
+        mediaListFrag.setArguments(bundle);
+
         return mediaListFrag;
+
     }
 
 
-    // Data
-    ArrayList<Media> mediaList = new ArrayList<>();
-
-    // UI
-    RecyclerView rvMedia;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -47,7 +48,15 @@ public class MediaListViewPagerPage extends BaseViewPagerPage {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        rvMedia = view.findViewById(R.id.rvMedia);
+        if (getActivity() == null) return;
+
+        Bundle bundle = getArguments();
+        if (bundle == null || !bundle.containsKey(MEDIA_LIST_KEY)) {
+            return;
+        }
+
+        ArrayList<Media> mediaList = (ArrayList<Media>) bundle.getSerializable(MEDIA_LIST_KEY);
+        RecyclerView rvMedia = view.findViewById(R.id.rvMedia);
         MediaAdapter adapter = new MediaAdapter(mediaList);
         rvMedia.setLayoutManager(new LinearLayoutManager(getContext()));
         rvMedia.setAdapter(adapter);
@@ -55,27 +64,15 @@ public class MediaListViewPagerPage extends BaseViewPagerPage {
             @Override
             public void onMediaClick(int position) {
                 eventListener.onMediaClickedListener(mediaList.get(position));
-                MediaAdapter adapter = (MediaAdapter) rvMedia.getAdapter();
-                adapter.notifyDataSetChanged();
             }
 
             @Override
             public void onFavoriteClick(int position) {
                 eventListener.onFavoriteClickListener(mediaList.get(position));
-                MediaAdapter adapter = (MediaAdapter) rvMedia.getAdapter();
-                adapter.notifyDataSetChanged();
             }
         });
         rvMedia.scrollToPosition(0);
         toggleLoader(false);
-    }
 
-    public void notifyListChanged(ArrayList<Media> list) {
-        if (rvMedia == null) return;
-        this.mediaList.clear();
-        this.mediaList.addAll(list);
-        MediaAdapter adapter = (MediaAdapter) rvMedia.getAdapter();
-        adapter.notifyDataSetChanged();
     }
-
 }
